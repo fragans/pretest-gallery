@@ -22,23 +22,23 @@ import {eventBus} from '../main'
                 images: [
                     {
                         src:'https://images.unsplash.com/photo-1459262838948-3e2de6c1ec80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80',
-                        caption: 'tes1'
+                        caption: 'tes caption 1'
                     },
                     {
                         src:'https://static01.nyt.com/images/2019/12/19/arts/19witcher/19witcher-jumbo-v3.jpg?quality=90&auto=webp',
-                        caption:'tes2'
+                        caption:'tes caption 2'
                     },
                     {
                         src:'https://anewspost.com/wp-content/uploads/2019/12/netflix-witcher.jpg', 
-                        caption: 'tes3'
+                        caption: 'tes caption 3'
                     },
                     {
                         src:'https://www.geek.com/wp-content/uploads/2020/01/YenneferOne1620-600x352.jpg', 
-                        caption: 'tes4'
+                        caption: 'tes caption 4'
                     },
                     {
                         src:'https://bi.im-g.pl/im/a5/59/18/z25531813V,-Wiedzmin----serial-Netflixa--Joey-Batey-w-roli-Ja.jpg', 
-                        caption: 'tes5'
+                        caption: 'tes caption 5'
                     }
                 ],
                 active: '',
@@ -99,11 +99,12 @@ img{
     width: 100%;
 }
 .btn{
+    opacity: 0.5;
     cursor: pointer;
     position: absolute;
     background: white;
     padding: 4px;
-    border-radius: 2px;
+    
     top: 50%;
 }
 .btn.right{
