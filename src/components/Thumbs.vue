@@ -1,10 +1,13 @@
 <template>
     <section>
-        <div v-for="(img,i) in images" :key="i" class="img" @click="select(img)">
-            <img :src="img.src" alt="" >
-            
-            <imgCaption :text="img.caption"></imgCaption>
+
+        <div v-for="(img,i) in images" :key="i"  @click.stop="select(img)" class="thumb">
+            <div class="img">
+                <div class="wide" :style="{ backgroundImage: 'url(' + img.src + ')' }"></div>
+                <imgCaption :text="img.caption"></imgCaption>    
+            </div>
         </div>
+
     </section>
 </template>
 
@@ -15,7 +18,7 @@ import imgCaption from './Caption'
         props: ['images'],
         methods:{
             select(img){
-                console.log('click')
+                console.log('seleet')
                 eventBus.$emit('showImage',img)
             }
         },
@@ -23,21 +26,30 @@ import imgCaption from './Caption'
             imgCaption
         },
         mounted(){
-            console.log(this.images)
+            
         }
     }
 </script>
 
 <style scoped>
-img{
-    height: 100%;
-    width: 100%
-}
+
 section{
     display: flex;
 }
 .img{
-max-width: 100px;
-padding: 10px;
+    max-width: 200px;
+    
+    padding-right: 10px;
+    
+}
+.thumb{
+    width: 20%;
+}
+.wide{
+    cursor: pointer;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-bottom: 56.66%
 }
 </style>

@@ -1,42 +1,120 @@
 <template>
     <div class="gallery">
-        <BigCard :image="images[0]"></BigCard>
+        
+        <div class="container">
+            <span class="btn" @click="prev()"> ⏪ </span>
+            <span class="btn right" @click="next()"> ⏩ </span>
+            <div class="wide" :style="{ 'background-image': 'url(' + active.src + ')' }"></div>
+            <imgCaption :text="active.caption"></imgCaption>
+        </div>
+        
         <thumbs :images="images"></thumbs>
     </div>
 </template>
 
 <script>
 import thumbs from './Thumbs';
-import BigCard from './BigCard';
+import imgCaption from './Caption'
+import {eventBus} from '../main'
     export default {
         data(){
             return{
                 images: [
                     {
-                        src:'https://cdn.vox-cdn.com/thumbor/VQizzEYeE7EgYWk9Q2KLdUmtaOo=/0x0:6000x4000/1200x800/filters:focal(1308x1703:2268x2663)/cdn.vox-cdn.com/uploads/chorus_image/image/65944369/TheWitcher_101_Unit_06900_RT.fk3ph4dhp.0.jpg',
-                        caption: 'tes1'
+                        src:'https://images.unsplash.com/photo-1459262838948-3e2de6c1ec80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80',
+                        caption: 'tes caption 1'
                     },
                     {
                         src:'https://static01.nyt.com/images/2019/12/19/arts/19witcher/19witcher-jumbo-v3.jpg?quality=90&auto=webp',
-                        caption:'tes2'
+                        caption:'tes caption 2'
                     },
                     {
                         src:'https://anewspost.com/wp-content/uploads/2019/12/netflix-witcher.jpg', 
-                        caption: 'tes3'
+                        caption: 'tes caption 3'
+                    },
+                    {
+                        src:'https://www.geek.com/wp-content/uploads/2020/01/YenneferOne1620-600x352.jpg', 
+                        caption: 'tes caption 4'
+                    },
+                    {
+                        src:'https://bi.im-g.pl/im/a5/59/18/z25531813V,-Wiedzmin----serial-Netflixa--Joey-Batey-w-roli-Ja.jpg', 
+                        caption: 'tes caption 5'
                     }
-                ]
+                ],
+                active: '',
+                key: 0
+
             }
             
         },
+        mounted(){
+           eventBus.$on('showImage',((img)=>{
+               this.active = img
+           }))
+            this.init(this.key)
+        },
+        methods:{
+            init(key){
+                console.log(this.images.length)
+                console.log(key)
+                if (key === this.images.length || key < 0) {
+                    this.key = 0
+                   this.init(0)
+                   
+                   return
+                }
+                this.active = this.images[key]
+                this.key = key
+            },
+            next(){
+                this.key = this.key + 1
+                this.init(this.key)
+            },  
+            prev(){
+                this.key = this.key - 1
+                this.init(this.key)
+            }
+        },
+
         components:{
             thumbs,
-            BigCard
+            imgCaption
         }
     }
 </script>
 
 <style scoped>
 .gallery{
+    margin: 0 auto;
     max-width: 40rem;
+    
+}
+.container{
+    position: relative;
+    background: white;
+    box-shadow: 0px 1px 4px #888;
+    margin-bottom: 10px;
+}
+img{
+    width: 100%;
+}
+.btn{
+    opacity: 0.5;
+    cursor: pointer;
+    position: absolute;
+    background: white;
+    padding: 4px;
+    
+    top: 50%;
+}
+.btn.right{
+    right:0;
+}
+.wide{
+    
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-bottom: 56.66%
 }
 </style>
